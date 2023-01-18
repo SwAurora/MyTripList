@@ -34,7 +34,8 @@ public class TestRepository implements UserRepository
     @Override
     public void delete(Long id)
     {
-
+        Users findUser = em.find(Users.class, id);
+        em.remove(findUser);
     }
 
     @Override
