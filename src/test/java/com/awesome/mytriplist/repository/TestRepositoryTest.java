@@ -1,6 +1,7 @@
 package com.awesome.mytriplist.repository;
 
 import com.awesome.mytriplist.domain.Users;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @SpringBootTest
 class TestRepositoryTest
 {
@@ -21,7 +23,7 @@ class TestRepositoryTest
         repository.save(users);
 
         Optional<Users> user = repository.findById(users.getId());
-        System.out.println("user = " + user);
+        log.info("user = {}", user);
     }
 
     @Test
@@ -31,26 +33,26 @@ class TestRepositoryTest
         repository.update(user);
 
         Optional<Users> result = repository.findById(5L);
-        System.out.println("afterUpdate = " + result);
+        log.info("afterUpdate = {}", result);
     }
 
     @Test
     void delete()
     {
         List<Users> beforeDelete = repository.findAll();
-        System.out.println("--삭제 전--");
+        log.info("--삭제 전--");
         for(Users users : beforeDelete)
         {
-            System.out.println(users);
+            log.info("{}", users);
         }
 
-        repository.delete(7L);
+        repository.delete(8L);
 
         List<Users> afterDelete = repository.findAll();
-        System.out.println("--삭제 후--");
+        log.info("--삭제 후--");
         for(Users users : afterDelete)
         {
-            System.out.println(users);
+            log.info("{}", users);
         }
     }
 
@@ -58,7 +60,7 @@ class TestRepositoryTest
     void findById()
     {
         Optional<Users> user = repository.findById(5L);
-        System.out.println("user = " + user);
+        log.info("user = {}", user);
     }
 
     @Test
@@ -67,7 +69,7 @@ class TestRepositoryTest
         List<Users> list = repository.findAll();
         for(Users users : list)
         {
-            System.out.println(users);
+            log.info("users = {}", users);
         }
     }
 
@@ -77,7 +79,7 @@ class TestRepositoryTest
         List<Users> list = repository.findCond();
         for(Users users : list)
         {
-            System.out.println(users);
+            log.info("users = {}", users);
         }
     }
 }
