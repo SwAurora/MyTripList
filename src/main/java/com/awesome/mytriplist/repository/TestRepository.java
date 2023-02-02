@@ -1,56 +1,48 @@
 package com.awesome.mytriplist.repository;
 
 import com.awesome.mytriplist.domain.Users;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-@Transactional
 public class TestRepository implements UserRepository
 {
-    private final EntityManager em;
+    private final TestJpaRepository testRepositoryV2;
 
     @Override
     public void save(Users user)
     {
-        em.persist(user);
+        testRepositoryV2.save(user);
     }
 
     @Override
     public void update(Users user)
     {
-        Users findUser = em.find(Users.class, user.getId());
-        findUser.setName(user.getName());
-        findUser.setAge(user.getAge());
+        Users users = testRepositoryV2.findById(user.getId()).orElseThrow();
+        users.setAge(user.getAge());
+        users.setName(user.getName());
     }
 
     @Override
     public void delete(Long id)
     {
-        Users findUser = em.find(Users.class, id);
-        em.remove(findUser);
+        Users users = testRepositoryV2.findById(id).orElseThrow();
+        testRepositoryV2.delete(users);
     }
 
     @Override
     public Optional<Users> findById(Long id)
     {
-        Users user = em.find(Users.class, id);
-        return Optional.ofNullable(user);
+        return testRepositoryV2.findById(id);
     }
 
     @Override
     public List<Users> findAll()
     {
-        String sql = "select i from Users i";
-        TypedQuery<Users> query = em.createQuery(sql, Users.class);
-        return query.getResultList();
+        return testRepositoryV2.findAll();
     }
 }
-

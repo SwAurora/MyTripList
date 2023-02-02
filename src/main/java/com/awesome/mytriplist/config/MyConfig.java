@@ -1,8 +1,8 @@
 package com.awesome.mytriplist.config;
 
+import com.awesome.mytriplist.repository.TestJpaRepository;
 import com.awesome.mytriplist.repository.TestRepository;
 import com.awesome.mytriplist.repository.UserRepository;
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,11 +11,11 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class MyConfig
 {
-    private final EntityManager em;
+    private final TestJpaRepository testJpaRepository;
 
     @Bean
     public UserRepository userRepository()
     {
-        return new TestRepository(em);
+        return new TestRepository(testJpaRepository);
     }
 }

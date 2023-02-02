@@ -44,7 +44,7 @@ class TestRepositoryTest
             System.out.println(users);
         }
 
-        repository.delete(2L);
+        repository.delete(1L);
 
         List<Users> afterDelete = repository.findAll();
         System.out.println("--삭제 후--");
