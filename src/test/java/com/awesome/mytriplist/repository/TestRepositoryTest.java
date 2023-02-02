@@ -70,4 +70,14 @@ class TestRepositoryTest
             System.out.println(users);
         }
     }
+
+    @Test
+    void findCond()
+    {
+        List<Users> list = repository.findCond();
+        for(Users users : list)
+        {
+            System.out.println(users);
+        }
+    }
 }

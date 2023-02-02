@@ -1,6 +1,7 @@
 package com.awesome.mytriplist.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 
@@ -12,8 +13,11 @@ public class Users
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotEmpty
     private Long id;
+    @NotEmpty
     private String name;
+    @NotEmpty
     private int age;
 
     public Users()

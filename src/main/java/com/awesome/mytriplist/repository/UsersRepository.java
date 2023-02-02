@@ -47,4 +47,9 @@ public class UsersRepository implements UserRepository
     {
         return repository.findAll();
     }
+
+    public List<Users> findCond()
+    {
+        return repository.findlimit2();
+    }
 }

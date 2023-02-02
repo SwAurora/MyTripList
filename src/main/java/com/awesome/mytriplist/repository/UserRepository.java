@@ -16,4 +16,6 @@ public interface UserRepository
     Optional<Users> findById(Long id);
 
     List<Users> findAll();
+
+    List<Users> findCond();
 }

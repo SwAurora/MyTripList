@@ -5,7 +5,10 @@ import com.awesome.mytriplist.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -18,11 +21,12 @@ public class HomeController
     private final UserRepository repository;
 
     @PostMapping("/save")
-    public String save(String name, int age, Model model)
+    public String save(@Validated @ModelAttribute("Users") Users users, BindingResult bindingResult, Model model)
     {
-        Users users = new Users();
-        users.setName(name);
-        users.setAge(age);
+        if(bindingResult.hasErrors())
+        {
+            return "save";
+        }
         repository.save(users);
         Optional<Users> user = repository.findById(users.getId());
         user.ifPresent(value -> model.addAttribute("user", value));
