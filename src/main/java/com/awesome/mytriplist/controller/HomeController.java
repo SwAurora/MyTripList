@@ -36,4 +36,10 @@ public class HomeController
         model.addAttribute("users", all);
         return "showAll";
     }
+
+    @GetMapping("/hi")
+    public String hi()
+    {
+        return "user/board/list";
+    }
 }
